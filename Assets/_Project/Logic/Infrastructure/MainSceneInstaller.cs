@@ -6,7 +6,7 @@ namespace _Project.Logic.Infrastructure
     {
         public override void InstallBindings()
         {
-            base.InstallBindings();
+            Container.BindInterfacesAndSelfTo<EntryPoint>().AsSingle().NonLazy();
         }
     }
 }
