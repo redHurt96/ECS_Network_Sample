@@ -12,7 +12,7 @@ namespace EcsFramework
         public Entity() => 
             Id = Guid.NewGuid();
 
-        public void Add<T>() where T : struct, IComponent
+        public T Add<T>() where T : IComponent, new()
         {
             Type type = typeof(T);
             T component = new();
@@ -21,17 +21,11 @@ namespace EcsFramework
                 throw new InvalidOperationException($"Component of type {type} already exists.");
 
             _components[type] = component;
+            return component;
         }
 
-        public void Modify<T>(Action<T> modifyAction) where T : struct, IComponent
-        {
-            Type type = typeof(T);
-            
-            if (_components.TryGetValue(type, out IComponent component)) 
-                modifyAction((T)component);
-            else
-                throw new InvalidOperationException($"Component of type {type} does not exist.");
-        }
+        public T Get<T>() where T : IComponent => 
+            (T)_components[typeof(T)];
 
         public void Remove<T>() where T : struct, IComponent
         {
@@ -43,7 +37,7 @@ namespace EcsFramework
             _components.Remove(type);
         }
 
-        public bool HasComponent<T>() where T : struct, IComponent => 
+        public bool HasComponent<T>() where T : IComponent => 
             _components.ContainsKey(typeof(T));
     }
 }

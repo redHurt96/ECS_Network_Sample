@@ -23,7 +23,7 @@ namespace EcsFramework
         IEnumerator IEnumerable.GetEnumerator() => 
             GetEnumerator();
 
-        public Filter With<T>() where T : struct, IComponent
+        public Filter With<T>() where T : IComponent
         {
             _conditions.Add(x => x.HasComponent<T>());
             return this;

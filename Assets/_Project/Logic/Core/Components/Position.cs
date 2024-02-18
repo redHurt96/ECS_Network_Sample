@@ -3,7 +3,7 @@ using EcsFramework;
 
 namespace _Project.Logic.Core.Components
 {
-    public struct Position : IComponent
+    public class Position : IComponent
     {
         public Vector3 Value;
     }

@@ -2,6 +2,7 @@ using _Project.Logic.Core.Components;
 using _Project.Logic.Extensions;
 using EcsFramework;
 using UnityEngine;
+using static UnityEngine.Random;
 
 namespace _Project.Logic.Core.Systems
 {
@@ -18,8 +19,9 @@ namespace _Project.Logic.Core.Systems
             if (Input.GetMouseButtonDown(0))
             {
                 foreach (Entity entity in _filter)
-                    entity.Modify<Position>(x => 
-                        x.Value = Random.insideUnitSphere.ToSystem());
+                    entity
+                        .Get<Position>()
+                        .Value = insideUnitSphere.ToSystem(); 
             }
         }
     }
