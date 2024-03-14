@@ -12,20 +12,11 @@ namespace EcsFramework
         public Entity() => 
             Id = Guid.NewGuid();
 
-        public T Add<T>() where T : IComponent, new()
-        {
-            Type type = typeof(T);
-            T component = new();
-            
-            if (_components.ContainsKey(type))
-                throw new InvalidOperationException($"Component of type {type} already exists.");
-
-            _components[type] = component;
-            return component;
-        }
-
         public T Get<T>() where T : IComponent => 
             (T)_components[typeof(T)];
+
+        public void Set<T>(T component) where T : struct, IComponent => 
+            _components[typeof(T)] = component;
 
         public void Remove<T>() where T : struct, IComponent
         {
@@ -37,7 +28,7 @@ namespace EcsFramework
             _components.Remove(type);
         }
 
-        public bool HasComponent<T>() where T : IComponent => 
+        public bool HasComponent<T>() where T : struct, IComponent => 
             _components.ContainsKey(typeof(T));
     }
 }

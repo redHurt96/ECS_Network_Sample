@@ -1,4 +1,5 @@
 using System;
+using System.Numerics;
 using _Project.Logic.Core.Components;
 using _Project.Logic.Core.Systems;
 using EcsFramework;
@@ -16,7 +17,7 @@ namespace _Project.Logic
             world.AddSystem(new ProvideInput());
             
             Entity player = world.CreateNewEntity();
-            player.Add<Position>();
+            player.Set<Position>(new() { Value = Vector3.Zero });
             
             world.Initialize();
             _world = world;

@@ -19,9 +19,11 @@ namespace _Project.Logic.Core.Systems
             if (Input.GetMouseButtonDown(0))
             {
                 foreach (Entity entity in _filter)
-                    entity
-                        .Get<Position>()
-                        .Value = insideUnitSphere.ToSystem(); 
+                {
+                    Position position = entity.Get<Position>();
+                    position.Value = insideUnitSphere.ToSystem();
+                    entity.Set(position);
+                }
             }
         }
     }
